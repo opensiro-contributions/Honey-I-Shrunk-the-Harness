@@ -65,7 +65,7 @@ test("planToolBatches handles all-sequential input as N solo batches", () => {
 // With the real registry: `agent` is parallel-safe per call, by readOnly.
 test("read-only agent calls in one response form one parallel batch", () => {
   const plan = planToolBatches([
-    { tool: "agent", args: { task: "a", prompt: "a" } },
+    { tool: "agent", args: { task: "a", prompt: "a", readOnly: true } },
     { tool: "agent", args: { task: "b", prompt: "b", readOnly: true } },
     { tool: "read", args: { filePath: "x" } },
   ]);
@@ -83,5 +83,18 @@ test("a writing agent call runs alone, whatever its neighbours", () => {
     { start: 0, end: 1, parallel: false },
     { start: 1, end: 2, parallel: false },
     { start: 2, end: 3, parallel: false },
+  ]);
+});
+
+test("an agent with implicit mode is not assumed read-only during batching", () => {
+  // A project agent definition may use mode: build. The batching planner has
+  // no project context and must not infer readOnly from a missing argument.
+  const plan = planToolBatches([
+    { tool: "agent", args: { task: "a", prompt: "a", subagent_type: "builder" } },
+    { tool: "agent", args: { task: "b", prompt: "b", subagent_type: "builder" } },
+  ]);
+  assert.deepEqual(plan, [
+    { start: 0, end: 1, parallel: false },
+    { start: 1, end: 2, parallel: false },
   ]);
 });
