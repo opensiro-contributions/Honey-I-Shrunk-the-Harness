@@ -619,13 +619,12 @@ Use it when the work would burn context you have no further use for ("find every
   },
   behavior: {
     isConcurrencySafe: false,
-    // Read-only sub-agents may run side by side: explore mode removes
-    // write/edit/bash from their tool list, so two cannot race on the tree.
-    // A writing one stays sequential. Models ask for parallel work by putting
-    // two calls in one response — MiniMax-M3 does exactly that (the
-    // `delegation` eval), and those used to run one after the other.
+    // Only an explicitly read-only sub-agent is safe to batch in parallel.
+    // With readOnly omitted, project agent definitions may resolve to mode:
+    // build, and this per-call planner cannot inspect that project context.
+    // Fail closed on the ambiguous mode; writing agents stay sequential.
     concurrencySafeFor: (args) =>
-      coerceBoolean((args as AgentParams | undefined)?.readOnly) !== false,
+      coerceBoolean((args as AgentParams | undefined)?.readOnly) === true,
     // A subagent runs arbitrary tools of its own and can mutate the
     // filesystem, so this must read the same as write/edit: triggers the
     // verify gate, counts toward stagnation, and is not safely retryable.
