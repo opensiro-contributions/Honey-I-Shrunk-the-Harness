@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": "histh-readonly-delegate-tool-batch",
+  "original_repository": "ayandexyz/Honey-I-Shrunk-the-Harness",
+  "legacy_sources": [
+    "https://github.com/opensiro/upstream-old/blob/5e641ec9401b40800080791b2e490491522b1734/pilots/histh-s2/CONTRIBUTION_HANDOFF.md",
+    "https://github.com/opensiro/upstream-old/blob/5e641ec9401b40800080791b2e490491522b1734/data/assessment-candidate-batches/2026-11-09-21.json"
+  ],
+  "title": "Conservative readonly delegate tool batching admission",
+  "work_state": "BLOCKED",
+  "next_action": "Historical metadata only. No new engineering or external publication until explicit owner RESUME and fresh source/policy verification.",
+  "source_revision": "f2aff641e55c2e6bb8c55a8fb82b67bdf2addd1a",
+  "native_evidence": [
+    "https://github.com/opensiro/upstream-old/blob/5e641ec9401b40800080791b2e490491522b1734/pilots/histh-s2/native-fix.patch",
+    "https://github.com/opensiro/upstream-old/blob/5e641ec9401b40800080791b2e490491522b1734/pilots/histh-s2/CONTRIBUTION_HANDOFF.md"
+  ],
+  "work_branches": [],
+  "external_prs": [],
+  "last_event_id": null
+}
